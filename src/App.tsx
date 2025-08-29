@@ -15,35 +15,41 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const AppContent = () => {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/team" element={<Team />} />
+          {/* Placeholder routes for future implementation */}
+          <Route path="/services" element={<Home />} />
+          <Route path="/intelligence" element={<Intelligence />} />
+          <Route path="/intelligence/:slug" element={<ArticlePage />} />
+          <Route path="/executive-learning" element={<Home />} />
+          <Route path="/public-speaking" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/briefing" element={<Home />} />
+          <Route path="/speaker" element={<Home />} />
+          <Route path="/newsletter" element={<Home />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/team" element={<Team />} />
-              {/* Placeholder routes for future implementation */}
-              <Route path="/services" element={<Home />} />
-              <Route path="/intelligence" element={<Intelligence />} />
-              <Route path="/intelligence/:slug" element={<ArticlePage />} />
-              <Route path="/executive-learning" element={<Home />} />
-              <Route path="/public-speaking" element={<Home />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/briefing" element={<Home />} />
-              <Route path="/speaker" element={<Home />} />
-              <Route path="/newsletter" element={<Home />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
+        <AppContent />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

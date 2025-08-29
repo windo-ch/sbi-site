@@ -5,7 +5,16 @@ import { Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
+  
+  // Add defensive programming for Router context
+  let location;
+  try {
+    location = useLocation();
+  } catch (error) {
+    console.error('Header: Router context not available:', error);
+    // Fallback location object
+    location = { pathname: '/' };
+  }
 
   const navigation = [
     { name: 'Intelligence', href: '/intelligence' },
