@@ -1,16 +1,37 @@
-import { useState } from 'react';
-import { Calendar, TrendingUp, BookOpen, Download, ArrowRight, Users, Globe, Target, Eye } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { TrendingUp, Users, Globe, Target, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import CTAButton from '@/components/ui/cta-button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { getAllArticles, getAllAuthors, Article, Author } from '@/lib/content';
+import ArticleCard from '@/components/articles/ArticleCard';
 const Intelligence = () => {
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
   const [email, setEmail] = useState('');
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [authors, setAuthors] = useState<Author[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const [articlesData, authorsData] = await Promise.all([
+          getAllArticles(),
+          getAllAuthors()
+        ]);
+        setArticles(articlesData);
+        setAuthors(authorsData);
+      } catch (error) {
+        console.error('Error loading content:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadContent();
+  }, []);
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
@@ -19,37 +40,9 @@ const Intelligence = () => {
     });
     setEmail('');
   };
-  const reports = [{
-    id: "SBI-001",
-    title: "An Introduction to 'Bitcoin Treasury Companies'",
-    author: "Yves-André Graf",
-    date: "2025-08-05",
-    blockHeight: "908691",
-    excerpt: "Taking the financial markets by storm and redefining finance as a whole, Strategy₿'s Bitcoin strategy is a new and complex concept. The intricacies of the strategy require a deep understanding of Bitcoin but also expertise of corporate finance, security analysis and other financial market components.",
-    tags: ["Treasury Strategy", "Corporate Finance", "Strategic Analysis"],
-    readTime: "12 min read",
-    image: "/api/placeholder/400/250"
-  }, {
-    id: "SBI-002",
-    title: "As big as the Internet? Why Bitcoin Intelligence drives Strategic Advantage",
-    author: "Dr. Marcus Dapp",
-    date: "2025-07-29",
-    blockHeight: "907674",
-    excerpt: "The Internet in 1990. Online banking in 1996. Social media in 2005. – What do these moments in time have in common? Back then the adoption rate of the respective technology was at 3% of the general population. Today, Bitcoin sits at the same level of adoption.",
-    tags: ["Strategic Intelligence", "Market Analysis", "Technology Adoption"],
-    readTime: "8 min read",
-    image: "/api/placeholder/400/250"
-  }, {
-    id: "SBI-003",
-    title: "Beyond the Hype: Why Leaders Need Bitcoin Expertise Now",
-    author: "Dr. Marcus Dapp",
-    date: "2025-07-16",
-    blockHeight: "907070",
-    excerpt: "The world is experiencing a fundamental monetary shift driven by technology that demands strategic attention at every level of society. Bitcoin is no longer a fringe experiment – it's reshaping national policies, corporate strategies, and individual freedoms.",
-    tags: ["Leadership", "Policy", "Strategic Planning"],
-    readTime: "10 min read",
-    image: "/api/placeholder/400/250"
-  }];
+  const getAuthorById = (authorId: string) => {
+    return authors.find(author => author.id === authorId);
+  };
   const intelligenceFeatures = [{
     icon: TrendingUp,
     title: "Market Intelligence",
@@ -68,7 +61,7 @@ const Intelligence = () => {
     description: "Interactive intelligence briefings with our research team, featuring Q&A and personalized strategic discussions."
   }];
   const stats = [{
-    value: "3",
+    value: articles.length.toString(),
     label: "Intelligence Reports",
     description: "Published so far"
   }, {
@@ -84,6 +77,17 @@ const Intelligence = () => {
     label: "Updates",
     description: "Fresh intelligence"
   }];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading intelligence reports...</p>
+        </div>
+      </div>
+    );
+  }
   return <div className="min-h-screen">
       {/* Hero Section */}
       <section className="swiss-hero swiss-gradient relative overflow-hidden">
@@ -142,69 +146,21 @@ const Intelligence = () => {
             </p>
           </div>
           
-          <div className="space-y-12">
-            {reports.map((report, index) => <Card key={index} className="group hover:shadow-2xl transition-all duration-500 border-gray-200 hover:border-bitcoin-orange/30 overflow-hidden">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <div className="lg:col-span-2">
-                    <CardContent className="p-8">
-                      <div className="flex items-start justify-between mb-6">
-                        <div className="flex flex-wrap gap-3">
-                          <Badge variant="secondary" className="bg-swiss-blue/10 text-swiss-blue hover:bg-swiss-blue/20">
-                            {report.id}
-                          </Badge>
-                          <Badge variant="secondary" className="text-gray-700">
-                            Block #{report.blockHeight}
-                          </Badge>
-                        </div>
-                        <div className="flex items-center text-sm text-gray-500">
-                          <Calendar className="w-4 h-4 mr-2" />
-                          {report.date}
-                        </div>
-                      </div>
-                      
-                      <h3 className="text-2xl font-semibold mb-4 text-gray-900 group-hover:text-bitcoin-orange transition-colors duration-300 leading-tight">
-                        {report.title}
-                      </h3>
-                      
-                      <div className="flex items-center mb-4 text-gray-600">
-                        <span className="font-medium">by {report.author}</span>
-                        <span className="mx-3">•</span>
-                        <span>{report.readTime}</span>
-                      </div>
-                      
-                      <p className="text-gray-700 leading-relaxed mb-6 text-lg">
-                        {report.excerpt}
-                      </p>
-                      
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {report.tags.map((tag, tagIndex) => <Badge key={tagIndex} variant="outline" className="border-swiss-blue text-swiss-blue">
-                            {tag}
-                          </Badge>)}
-                      </div>
-                      
-                      <div className="flex flex-col sm:flex-row gap-4">
-                        <Button className="bg-bitcoin-orange hover:bg-bitcoin-orange-hover text-white">
-                          <BookOpen className="w-4 h-4 mr-2" />
-                          Read Full Report
-                        </Button>
-                        <Button variant="outline" className="border-gray-300 hover:border-bitcoin-orange hover:text-bitcoin-orange">
-                          <Download className="w-4 h-4 mr-2" />
-                          Download PDF
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </div>
-                  
-                  <div className="lg:col-span-1">
-                    <div className="h-48 lg:h-full bg-gradient-to-br from-bitcoin-orange/10 to-bitcoin-orange/5 flex items-center justify-center group-hover:from-bitcoin-orange/20 group-hover:to-bitcoin-orange/10 transition-all duration-500">
-                      <div className="text-bitcoin-orange/60 group-hover:text-bitcoin-orange/80 transition-colors duration-500">
-                        <Eye className="w-16 h-16" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Card>)}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {articles.map((article) => (
+              <ArticleCard 
+                key={article.id} 
+                article={article} 
+                author={getAuthorById(article.author)}
+              />
+            ))}
           </div>
+          
+          {articles.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">No intelligence reports available at this time.</p>
+            </div>
+          )}
           
           <div className="text-center mt-12">
             <Button variant="outline" size="lg" className="border-bitcoin-orange text-bitcoin-orange hover:bg-bitcoin-orange hover:text-white">

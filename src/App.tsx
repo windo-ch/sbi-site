@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Team from "./pages/Team";
 import Contact from "./pages/Contact";
 import Intelligence from "./pages/Intelligence";
+import ArticlePage from "./pages/ArticlePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
               {/* Placeholder routes for future implementation */}
               <Route path="/services" element={<Home />} />
               <Route path="/intelligence" element={<Intelligence />} />
+              <Route path="/intelligence/:slug" element={<ArticlePage />} />
               <Route path="/executive-learning" element={<Home />} />
               <Route path="/public-speaking" element={<Home />} />
               <Route path="/contact" element={<Contact />} />
