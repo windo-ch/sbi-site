@@ -1,80 +1,61 @@
 import CTAButton from '@/components/ui/cta-button';
 import ServiceCard from '@/components/sections/ServiceCard';
 import NewsletterSection from '@/components/sections/NewsletterSection';
-
 const Home = () => {
-  const principles = [
-    {
-      icon: "🏛️",
-      title: "Sovereignty",
-      description: "Self-custody and monetary independence"
-    },
-    {
-      icon: "🤝",
-      title: "Neutrality", 
-      description: "Non-partisan, evidence-based research"
-    },
-    {
-      icon: "⚖️",
-      title: "Consensus",
-      description: "Transparent, collaborative decision-making"
-    },
-    {
-      icon: "🌐",
-      title: "Decentralization",
-      description: "Distributed systems and resilience"
-    },
-    {
-      icon: "🕊️",
-      title: "Liberty",
-      description: "Economic freedom and individual rights"
-    }
-  ];
-
-  const services = [
-    {
-      title: "Bitcoin Intelligence",
-      description: "Actionable, executive-ready insights on Bitcoin's strategic implications for Switzerland's leaders.",
-      outcomes: "Sharper policy decisions, enhanced risk management, and strategic alignment with global monetary trends.",
-      ctaText: "Explore Intelligence Services",
-      ctaLink: "/intelligence"
-    },
-    {
-      title: "Executive Learning",
-      description: "Briefings and roundtables that build institutional capability and decision-making confidence.",
-      outcomes: "Enhanced Bitcoin literacy, scenario planning frameworks, decision-ready playbooks for leadership teams.",
-      ctaText: "Request Executive Briefing",
-      ctaLink: "/briefing"
-    },
-    {
-      title: "Public Speaking",
-      description: "Strategic keynotes that inform stakeholders and build organizational alignment on Bitcoin strategy.",
-      outcomes: "Organizational clarity, stakeholder alignment, and strategic momentum across all levels.",
-      ctaText: "Book a Speaker",
-      ctaLink: "/speaker"
-    }
-  ];
-
-  const researchHighlights = [
-    {
-      title: "Bitcoin and Swiss Energy Grid Stability",
-      description: "How Bitcoin mining can support renewable energy transition and grid resilience.",
-      readTime: "12 min read"
-    },
-    {
-      title: "Constitutional Money: Bitcoin's Role in Swiss Sovereignty", 
-      description: "Exploring Bitcoin's alignment with Switzerland's constitutional monetary principles.",
-      readTime: "8 min read"
-    },
-    {
-      title: "Central Bank Digital Currencies vs. Bitcoin",
-      description: "Comparative analysis for Swiss policymakers on digital monetary systems.",
-      readTime: "15 min read"
-    }
-  ];
-
-  return (
-    <div className="min-h-screen">
+  const principles = [{
+    icon: "🏛️",
+    title: "Sovereignty",
+    description: "Self-custody and monetary independence"
+  }, {
+    icon: "🤝",
+    title: "Neutrality",
+    description: "Non-partisan, evidence-based research"
+  }, {
+    icon: "⚖️",
+    title: "Consensus",
+    description: "Transparent, collaborative decision-making"
+  }, {
+    icon: "🌐",
+    title: "Decentralization",
+    description: "Distributed systems and resilience"
+  }, {
+    icon: "🕊️",
+    title: "Liberty",
+    description: "Economic freedom and individual rights"
+  }];
+  const services = [{
+    title: "Bitcoin Intelligence",
+    description: "Actionable, executive-ready insights on Bitcoin's strategic implications for Switzerland's leaders.",
+    outcomes: "Sharper policy decisions, enhanced risk management, and strategic alignment with global monetary trends.",
+    ctaText: "Explore Intelligence Services",
+    ctaLink: "/intelligence"
+  }, {
+    title: "Executive Learning",
+    description: "Briefings and roundtables that build institutional capability and decision-making confidence.",
+    outcomes: "Enhanced Bitcoin literacy, scenario planning frameworks, decision-ready playbooks for leadership teams.",
+    ctaText: "Request Executive Briefing",
+    ctaLink: "/briefing"
+  }, {
+    title: "Public Speaking",
+    description: "Strategic keynotes that inform stakeholders and build organizational alignment on Bitcoin strategy.",
+    outcomes: "Organizational clarity, stakeholder alignment, and strategic momentum across all levels.",
+    ctaText: "Book a Speaker",
+    ctaLink: "/speaker"
+  }];
+  const researchHighlights = [{
+    title: "Bitcoin and Swiss Energy Grid Stability",
+    description: "How Bitcoin mining can support renewable energy transition and grid resilience.",
+    readTime: "12 min read"
+  }, {
+    title: "Constitutional Money: Bitcoin's Role in Swiss Sovereignty",
+    description: "Exploring Bitcoin's alignment with Switzerland's constitutional monetary principles.",
+    readTime: "8 min read"
+  }, {
+    title: "Central Bank Digital Currencies vs. Bitcoin",
+    description: "Comparative analysis for Swiss policymakers on digital monetary systems.",
+    readTime: "15 min read"
+  }];
+  return <div className="min-h-screen">
       {/* Hero Section */}
       <section className="swiss-hero swiss-gradient relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-bitcoin-orange/5 via-transparent to-swiss-red/5"></div>
@@ -85,9 +66,7 @@ const Home = () => {
                 🇨🇭 Switzerland's Independent Bitcoin Think Tank
               </span>
             </div>
-            <h1 className="mb-8 text-gray-900">
-              Equip Switzerland's leaders for the Bitcoin age
-            </h1>
+            <h1 className="mb-8 text-gray-900">Equipping Switzerland's leaders for the Bitcoin age</h1>
             <p className="swiss-prose-lg mb-12 max-w-4xl mx-auto text-gray-700">
               Independent, evidence-based intelligence and executive learning for decision-makers 
               navigating the transition to sound digital money.
@@ -128,8 +107,7 @@ const Home = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
-            {principles.map((principle, index) => (
-              <div key={index} className="text-center group">
+            {principles.map((principle, index) => <div key={index} className="text-center group">
                 <div className="relative">
                   <div className="w-20 h-20 bg-gradient-to-br from-bitcoin-orange/10 to-swiss-red/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
                     <span className="text-3xl transition-all duration-300">{principle.icon}</span>
@@ -138,8 +116,7 @@ const Home = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-3 text-gray-900">{principle.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{principle.description}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -154,9 +131,7 @@ const Home = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            {services.map((service, index) => (
-              <ServiceCard key={index} {...service} />
-            ))}
+            {services.map((service, index) => <ServiceCard key={index} {...service} />)}
           </div>
         </div>
       </section>
@@ -171,8 +146,7 @@ const Home = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {researchHighlights.map((highlight, index) => (
-              <div key={index} className="group">
+            {researchHighlights.map((highlight, index) => <div key={index} className="group">
                 <div className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl shadow-lg border border-gray-100 group-hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2">
                   <div className="flex items-center justify-between mb-4">
                     <span className="px-3 py-1 bg-swiss-blue/10 text-swiss-blue text-xs font-medium rounded-full">
@@ -191,8 +165,7 @@ const Home = () => {
                     </svg>
                   </div>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -234,8 +207,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Home;
